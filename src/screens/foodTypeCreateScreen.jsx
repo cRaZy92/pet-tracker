@@ -1,6 +1,8 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { useForm } from 'react-hook-form';
 import BaseTextInput from '../components/form/base-text-input';
+import { useMutation } from 'convex/react';
+import { api } from '../../convex/_generated/api';
 
 export default function FoodTypeCreateScreen({ navigation }) {
   const {
@@ -11,12 +13,22 @@ export default function FoodTypeCreateScreen({ navigation }) {
     defaultValues: {
       brand: '',
       name: '',
-      calories: 0
+      calories: '0'
     }
   });
+  const createFoodType = useMutation(api.foodTypes.create);
 
   const onSubmit = data => {
     console.log(data);
+    data.calories = parseInt(data.calories);
+
+    createFoodType(data).then((newFoodId) => {
+      console.log(`Saved new food type with ID ${newFoodId}`);
+      ToastAndroid.show('New food saved!', ToastAndroid.SHORT);
+      onCancel();
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   const onCancel = () => {
