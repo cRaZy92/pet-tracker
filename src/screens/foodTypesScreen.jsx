@@ -1,15 +1,16 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useEffect } from 'react';
 
 export default function FoodTypesScreen({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button
+        <Pressable
           onPress={() => navigation.navigate('FoodTypeCreate')}
-          title="New"
-          color="#444"
-        />
+          style={styles.createNewButton}
+        >
+          <Text>New</Text>
+        </Pressable>
       ),
     });
   }, [navigation]);
@@ -28,5 +29,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  createNewButton: {
+    backgroundColor: '#3dbd00',
+    color: '#fff',
+    width: 60,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 22
   }
 });
