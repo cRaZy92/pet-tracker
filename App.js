@@ -3,9 +3,8 @@ import { CONVEX_URL } from "@env";
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FoodTypesScreen from './src/screens/foodTypesScreen';
-import FoodStorageScreen from './src/screens/foodStorageScreen';
-import FoodTypeCreateScreen from './src/screens/foodTypeCreateScreen';
+import FoodCreateScreen from './src/screens/food-create-screen';
+import FoodStorageScreen from './src/screens/food-storage-screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,9 +18,8 @@ export default function App() {
       <NavigationContainer>
         <StatusBar style="auto" />
         <Tab.Navigator >
-          <Tab.Screen name="Types" component={FoodTypesScreen} options={{title: 'All food types'}} />
           <Tab.Screen name="Storage" component={FoodStorageScreen} options={{title: 'Available food'}} />
-          <Tab.Screen name="FoodTypeCreate" component={FoodTypeCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'New Food Type'}} />
+          <Tab.Screen name="FoodCreate" component={FoodCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'Create New Food'}} />
         </Tab.Navigator>
       </NavigationContainer>
     </ConvexProvider>

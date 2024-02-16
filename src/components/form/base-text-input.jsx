@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     fontSize: 20,
     minHeight: 50,
-    minWidth: 200,
+    minWidth: 300,
+    paddingHorizontal: 20
   }
 });

@@ -5,16 +5,16 @@ export const create = mutation({
   args: {
     brand: v.string(),
     name: v.string(),
-    calories: v.number()
+    calories: v.number(),
+    amount: v.number()
   },
   handler: async (ctx, args) => {
-    const newFoodTypeId = await ctx.db.insert("foodTypes",
+    return await ctx.db.insert("food",
       {
         brand: args.brand,
         name: args.name,
         calories: args.calories,
+        amount: args.amount,
       });
-    console.log(newFoodTypeId);
-    return newFoodTypeId;
   },
 });

@@ -2,9 +2,10 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-	foodTypes: defineTable({
+	food: defineTable({
 		brand: v.string(),
-		calories: v.float64(),
 		name: v.string(),
+		calories: v.number(),
+		amount: v.number()
 	}),
 });

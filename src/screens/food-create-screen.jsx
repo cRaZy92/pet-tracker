@@ -4,26 +4,24 @@ import BaseTextInput from '../components/form/base-text-input';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 
-export default function FoodTypeCreateScreen({ navigation }) {
+export default function FoodCreateScreen({ navigation }) {
   const {
     control, handleSubmit, reset,
     formState: { errors }
   }
     = useForm({
     defaultValues: {
-      brand: '',
-      name: '',
-      calories: '0'
+      amount: '0'
     }
   });
-  const createFoodType = useMutation(api.foodTypes.create);
+  const createNewFood = useMutation(api.food.create);
 
   const onSubmit = data => {
-    console.log(data);
     data.calories = parseInt(data.calories);
+    data.amount = parseInt(data.amount);
 
-    createFoodType(data).then((newFoodId) => {
-      console.log(`Saved new food type with ID ${newFoodId}`);
+    createNewFood(data).then((newFoodId) => {
+      console.log(`Saved new food with ID ${newFoodId}`);
       ToastAndroid.show('New food saved!', ToastAndroid.SHORT);
       onCancel();
     }).catch((err) => {
@@ -41,6 +39,7 @@ export default function FoodTypeCreateScreen({ navigation }) {
       <BaseTextInput control={control} rules={{ required: true }} name="brand" errors={errors.brand} label="Brand" />
       <BaseTextInput control={control} rules={{ required: true }} name="name" errors={errors.name} label="Name" />
       <BaseTextInput control={control} rules={{ required: true }} name="calories" errors={errors.calories} label="Calories" />
+      <BaseTextInput control={control} name="amount" errors={errors.amount} label="Amount" />
 
       <View style={styles.formActionsContainer}>
         <Pressable style={[styles.formButton, styles.formCancelButton]} onPress={onCancel}>

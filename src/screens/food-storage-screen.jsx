@@ -1,12 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useEffect } from 'react';
 
-export default function FoodTypesScreen({ navigation }) {
+export default function FoodStorageScreen({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Pressable
-          onPress={() => navigation.navigate('FoodTypeCreate')}
+          onPress={() => navigation.navigate('FoodCreate')}
           style={styles.createNewButton}
         >
           <Text>New</Text>
@@ -18,7 +18,7 @@ export default function FoodTypesScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>WIP</Text>
-      <Text>Display all saved food types.</Text>
+      <Text>Display all food.</Text>
     </View>
   );
 }
