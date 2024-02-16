@@ -1,5 +1,9 @@
-import { mutation } from './_generated/server';
+import { mutation, query } from './_generated/server';
 import { v } from 'convex/values';
+
+export const list = query(async (ctx) => {
+  return await ctx.db.query("food").collect();
+});
 
 export const create = mutation({
   args: {
@@ -16,5 +20,25 @@ export const create = mutation({
         calories: args.calories,
         amount: args.amount,
       });
+  },
+});
+
+export const update = mutation({
+  args: {
+    id: v.id('food'),
+    amount: v.number(),
+    amountChange: v.number(),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.patch(args.id,
+      {
+        amount: args.amount + args.amountChange,
+      }).then(() => {
+        return ctx.db.insert("foodLog",
+        {
+          foodId: args.id,
+          amountChange: args.amountChange,
+        });
+    });
   },
 });

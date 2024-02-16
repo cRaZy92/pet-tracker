@@ -6,6 +6,10 @@ export default defineSchema({
 		brand: v.string(),
 		name: v.string(),
 		calories: v.number(),
-		amount: v.number()
+		amount: v.number(),
+	}),
+	foodLog: defineTable({
+		foodId: v.id('food'),
+		amountChange: v.number(),
 	}),
 });

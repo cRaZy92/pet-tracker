@@ -1,5 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useEffect } from 'react';
+import FoodItem from '../components/food-item';
+import { useQuery } from 'convex/react';
+import { api } from '../../convex/_generated/api';
 
 export default function FoodStorageScreen({ navigation }) {
   useEffect(() => {
@@ -15,10 +18,15 @@ export default function FoodStorageScreen({ navigation }) {
     });
   }, [navigation]);
 
+  const foodList = useQuery(api.food.list) || [];
+
   return (
     <View style={styles.container}>
-      <Text>WIP</Text>
-      <Text>Display all food.</Text>
+      {
+        foodList.map((food) =>
+          <FoodItem key={food._id} id={food._id} {...food} />
+        )
+      }
     </View>
   );
 }
@@ -26,9 +34,10 @@ export default function FoodStorageScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   createNewButton: {
     backgroundColor: '#3dbd00',
