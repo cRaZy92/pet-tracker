@@ -17,7 +17,8 @@ export default function FoodCreateScreen({ navigation }) {
   const createNewFood = useMutation(api.food.create);
 
   const onSubmit = data => {
-    data.calories = parseInt(data.calories);
+    data.weight = parseInt(data.weight);
+    data.meatContent = parseInt(data.meatContent);
     data.amount = parseInt(data.amount);
 
     createNewFood(data).then((newFoodId) => {
@@ -38,7 +39,8 @@ export default function FoodCreateScreen({ navigation }) {
     <View style={styles.container}>
       <BaseTextInput control={control} rules={{ required: true }} name="brand" errors={errors.brand} label="Brand" />
       <BaseTextInput control={control} rules={{ required: true }} name="name" errors={errors.name} label="Name" />
-      <BaseTextInput control={control} rules={{ required: true }} name="calories" errors={errors.calories} label="Calories" />
+      <BaseTextInput control={control} rules={{ required: true }} name="weight" errors={errors.weight} label="Weight (g)" />
+      <BaseTextInput control={control} rules={{ required: true }} name="meatContent" errors={errors.meatContent} label="Meat Content (%)" />
       <BaseTextInput control={control} name="amount" errors={errors.amount} label="Amount" />
 
       <View style={styles.formActionsContainer}>

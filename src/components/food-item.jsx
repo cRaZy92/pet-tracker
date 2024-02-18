@@ -3,7 +3,7 @@ import TestImage from '../../assets/test-image.png';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 
-export default function FoodItem({ id, brand, name, calories, amount }) {
+export default function FoodItem({ id, brand, name, weight, meatContent, amount }) {
   const updateFood = useMutation(api.food.update);
 
   const onAmountChange = changeAmount => {
@@ -19,7 +19,7 @@ export default function FoodItem({ id, brand, name, calories, amount }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{brand} - {name}</Text>
-      <Text>Cals: {calories}</Text>
+      <Text>Weight: {weight}g ({meatContent}% meat)</Text>
       <Image source={TestImage} style={styles.image} />
       <View style={styles.actionsContainer}>
         <Pressable style={[styles.actionButton, styles.actionSub]} onPress={() => onAmountChange(-1)}>

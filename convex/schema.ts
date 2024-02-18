@@ -5,7 +5,8 @@ export default defineSchema({
 	food: defineTable({
 		brand: v.string(),
 		name: v.string(),
-		calories: v.number(),
+		weight: v.number(),
+		meatContent: v.number(),
 		amount: v.number(),
 	}),
 	foodLog: defineTable({

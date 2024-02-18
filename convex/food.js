@@ -9,7 +9,8 @@ export const create = mutation({
   args: {
     brand: v.string(),
     name: v.string(),
-    calories: v.number(),
+    weight: v.number(),
+    meatContent: v.number(),
     amount: v.number()
   },
   handler: async (ctx, args) => {
@@ -17,7 +18,8 @@ export const create = mutation({
       {
         brand: args.brand,
         name: args.name,
-        calories: args.calories,
+        weight: args.weight,
+        meatContent: args.meatContent,
         amount: args.amount,
       });
   },
