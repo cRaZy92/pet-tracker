@@ -1,5 +1,4 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
-import { CONVEX_URL } from "@env";
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,7 +8,7 @@ import FoodStatsScreen from './src/screens/food-stats';
 
 const Tab = createBottomTabNavigator();
 
-const convex = new ConvexReactClient(CONVEX_URL, {
+const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL, {
   unsavedChangesWarning: false,
 });
 
