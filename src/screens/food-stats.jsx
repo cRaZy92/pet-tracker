@@ -31,7 +31,7 @@ export default function FoodStatsScreen() {
     }, 0);
 
     return {
-      dailyAverage: weightSum / DaysDiff,
+      dailyAverage: Math.round(weightSum / DaysDiff),
       daysCount: DaysDiff,
       meatPercentage: Math.round(meatSum / foodLogs.length)
     }
