@@ -1,15 +1,16 @@
-import { Image, Pressable, StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { ToastAndroid } from 'react-native';
 import TestImage from '../../assets/test-image.png';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
+import { Box, Button, ButtonText, Card, Heading, Image, Text, VStack } from '@gluestack-ui/themed';
 
 export default function FoodItem({ id, brand, name, weight, meatContent, amount }) {
   const updateFood = useMutation(api.food.update);
 
   const onAmountChange = changeAmount => {
-    updateFood({id: id, amount: amount, amountChange: changeAmount}).then(() => {
+    updateFood({ id: id, amount: amount, amountChange: changeAmount }).then(() => {
       console.log(`Food with ID ${id} was updated.`);
-      ToastAndroid.show('Food updated!', ToastAndroid.SHORT);
+      ToastAndroid.show('Your pet is thankful!', ToastAndroid.SHORT);
     }).catch((err) => {
       console.log(err);
       ToastAndroid.show('Mission failed!', ToastAndroid.SHORT);
@@ -17,59 +18,62 @@ export default function FoodItem({ id, brand, name, weight, meatContent, amount 
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{brand} - {name}</Text>
-      <Text>Weight: {weight}g ({meatContent}% meat)</Text>
-      <Image source={TestImage} style={styles.image} />
-      <View style={styles.actionsContainer}>
-        <Pressable style={[styles.actionButton, styles.actionSub]} onPress={() => onAmountChange(-1)}>
-          <Text style={styles.actionText}>-</Text>
-        </Pressable>
-        <Text style={styles.actionText}>{amount}</Text>
-        <Pressable style={[styles.actionButton, styles.actionAdd]} onPress={() => onAmountChange(1)}>
-          <Text style={styles.actionText}>+</Text>
-        </Pressable>
-      </View>
-    </View>
+    <Card borderRadius="$lg" maxWidth="49%" m="$1">
+      <Image
+        mb="$3"
+        h={120}
+        width="$full"
+        borderRadius="$md"
+        source={TestImage}
+        alt="food image"
+      />
+      <Text
+        fontSize="$sm"
+        fontStyle="normal"
+        fontFamily="$heading"
+        fontWeight="$normal"
+        lineHeight="$sm"
+        mb="$1"
+      >
+        {brand}
+      </Text>
+      <VStack mb="$3">
+        <Heading size="md" fontFamily="$heading" mb="$2" width="98%">
+          {name}
+        </Heading>
+        <Text size="sm" fontFamily="$heading">
+          Weight: {weight}g ({meatContent}% meat)
+        </Text>
+      </VStack>
+      <Box flexDirection="column">
+        <Button
+          px="$4"
+          py="$2"
+          fontFamily="$heading"
+          mr="$0"
+          mb="$3"
+          isDisabled={amount < 1}
+          onPress={() => onAmountChange(-1)}
+        >
+          <ButtonText size="sm">Nom Nom ({amount} left)</ButtonText>
+        </Button>
+        <Button
+          px="$4"
+          py="$2"
+          variant="outline"
+          fontFamily="$heading"
+          action="positive"
+          onPress={() => onAmountChange(1)}
+        >
+          <ButtonText
+            size="sm"
+            color="$textLight700"
+            $dark-color="$textDark400"
+          >
+            Add more
+          </ButtonText>
+        </Button>
+      </Box>
+    </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    display:'flex',
-    flexDirection: 'column',
-    width: '50%',
-    padding: 5
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 4
-  },
-  image: {
-    height: 100,
-    width: 'auto'
-  },
-  actionsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 4
-  },
-  actionButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8
-  },
-  actionAdd: {
-    backgroundColor: '#008f00'
-  },
-  actionSub: {
-    backgroundColor: '#ee0000'
-  },
-  actionText: {
-    fontWeight: '300',
-    fontSize: 30
-  }
-});

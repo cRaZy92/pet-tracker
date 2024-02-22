@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import { useEffect } from 'react';
 import FoodItem from '../components/food-item';
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
+import { FlatList } from '@gluestack-ui/themed';
 
 export default function FoodStorageScreen({ navigation }) {
   useEffect(() => {
@@ -21,24 +22,18 @@ export default function FoodStorageScreen({ navigation }) {
   const foodList = useQuery(api.food.list) || [];
 
   return (
-    <View style={styles.container}>
-      {
-        foodList.map((food) =>
-          <FoodItem key={food._id} id={food._id} {...food} />
-        )
+    <FlatList
+      data={foodList}
+      numColumns={2}
+      keyExtractor={(item) => item._id }
+      renderItem={({ item }) =>
+        <FoodItem id={item._id} {...item} />
       }
-    </View>
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    backgroundColor: '#fff',
-  },
   createNewButton: {
     backgroundColor: '#3dbd00',
     color: '#fff',
