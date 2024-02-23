@@ -3,6 +3,7 @@ import TestImage from '../../assets/test-image.png';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { Box, Button, ButtonText, Card, Heading, Image, Text, VStack } from '@gluestack-ui/themed';
+import FoodAddMoreModal from './food-add-more-modal';
 
 export default function FoodItem({ id, brand, name, weight, meatContent, amount }) {
   const updateFood = useMutation(api.food.update);
@@ -57,22 +58,7 @@ export default function FoodItem({ id, brand, name, weight, meatContent, amount 
         >
           <ButtonText size="sm">Nom Nom ({amount} left)</ButtonText>
         </Button>
-        <Button
-          px="$4"
-          py="$2"
-          variant="outline"
-          fontFamily="$heading"
-          action="positive"
-          onPress={() => onAmountChange(1)}
-        >
-          <ButtonText
-            size="sm"
-            color="$textLight700"
-            $dark-color="$textDark400"
-          >
-            Add more
-          </ButtonText>
-        </Button>
+        <FoodAddMoreModal id={id} brand={brand} name={name} originalAmount={amount} />
       </Box>
     </Card>
   );
