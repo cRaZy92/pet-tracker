@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FoodCreateScreen from './src/screens/food-create-screen';
 import FoodStorageScreen from './src/screens/food-storage-screen';
 import FoodStatsScreen from './src/screens/food-stats';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { ClockIcon, EditIcon, GluestackUIProvider, Icon } from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config';
 import { useColorScheme } from 'react-native';
 
@@ -24,9 +24,9 @@ export default function App() {
         <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <StatusBar style="auto" />
           <Tab.Navigator >
-            <Tab.Screen name="Storage" component={FoodStorageScreen} options={{title: 'Available food'}} />
+            <Tab.Screen name="Storage" component={FoodStorageScreen} options={{title: 'Available food', tabBarIcon: () => <Icon as={EditIcon} w="$6" h="$6" />}} />
             <Tab.Screen name="FoodCreate" component={FoodCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'Create New Food'}} />
-            <Tab.Screen name="Stats" component={FoodStatsScreen} options={{title: 'Stats'}} />
+            <Tab.Screen name="Stats" component={FoodStatsScreen} options={{title: 'Stats', tabBarIcon: () => <Icon as={ClockIcon} w="$6" h="$6" />}} />
           </Tab.Navigator>
         </NavigationContainer>
       </GluestackUIProvider>
