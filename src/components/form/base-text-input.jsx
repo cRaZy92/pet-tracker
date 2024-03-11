@@ -1,43 +1,43 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Controller } from 'react-hook-form';
+import {
+  AlertCircleIcon,
+  FormControl,
+  FormControlError,
+  FormControlErrorIcon, FormControlErrorText,
+  FormControlLabel, FormControlLabelText,
+  Input,
+  InputField,
+} from '@gluestack-ui/themed';
 
 export default function BaseTextInput({ control, rules, name, label, errors}) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <Controller
-        control={control}
-        rules={rules}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name={name}
-      />
-      {errors && <Text>This is required.</Text>}
-    </View>
+    <FormControl
+      size="md"
+      isDisabled={false}
+      isInvalid={errors}
+      isRequired={rules?.required}
+    >
+      <FormControlLabel mb="$1">
+        <FormControlLabelText>{label}</FormControlLabelText>
+      </FormControlLabel>
+      <Input>
+        <Controller
+          control={control}
+          rules={rules}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <InputField onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value} />
+          )}
+          name={name}
+        />
+      </Input>
+      <FormControlError>
+        <FormControlErrorIcon as={AlertCircleIcon} />
+        <FormControlErrorText>
+          This is required.
+        </FormControlErrorText>
+      </FormControlError>
+    </FormControl>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    display:'flex',
-    flexDirection: 'column',
-  },
-  label: {
-    fontSize: 22,
-    marginBottom: 4
-  },
-  input: {
-    color: '#fff',
-    backgroundColor: '#222',
-    fontSize: 20,
-    minHeight: 50,
-    minWidth: 300,
-    paddingHorizontal: 20
-  }
-});
