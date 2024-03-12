@@ -1,20 +1,24 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
 import { useEffect } from 'react';
 import FoodItem from '../components/food-item';
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { FlatList } from '@gluestack-ui/themed';
+import { FlatList, Button, ButtonText, ButtonIcon, AddIcon } from '@gluestack-ui/themed';
 
 export default function FoodStorageScreen({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable
+        <Button
+          size="md"
+          variant="solid"
+          action="positive"
+          isDisabled={false}
+          isFocusVisible={false}
           onPress={() => navigation.navigate('FoodCreate')}
-          style={styles.createNewButton}
         >
-          <Text>New</Text>
-        </Pressable>
+          <ButtonText>New </ButtonText>
+          <ButtonIcon as={AddIcon} />
+        </Button>
       ),
     });
   }, [navigation]);
@@ -32,15 +36,3 @@ export default function FoodStorageScreen({ navigation }) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  createNewButton: {
-    backgroundColor: '#3dbd00',
-    color: '#fff',
-    width: 60,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 22
-  }
-});
