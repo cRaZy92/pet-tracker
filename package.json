@@ -15,7 +15,6 @@
     "@gluestack-ui/themed": "^1.1.8",
     "@react-navigation/bottom-tabs": "^6.5.12",
     "@react-navigation/native": "^6.1.10",
-    "@react-navigation/native-stack": "^6.9.18",
     "@types/react": "~18.2.45",
     "convex": "^1.9.0",
     "expo": "^50.0.7",
