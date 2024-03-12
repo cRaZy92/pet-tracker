@@ -18,3 +18,17 @@ export const getLastSevenDays = query(async (ctx, args) => {
   );
 });
 
+export const getAll = query(async (ctx, args) => {
+  const logs = await ctx.db
+    .query("foodLog")
+    .order("desc")
+    .collect();
+
+  return await Promise.all(
+    (logs ?? []).map(async (log) => ({
+      ...log,
+      food: await ctx.db.get(log.foodId)
+    }))
+  );
+});
+
