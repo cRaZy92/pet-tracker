@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { StyleSheet, ToastAndroid, View } from 'react-native';
 import { useForm } from 'react-hook-form';
 import BaseTextInput from '../components/form/base-text-input';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
+import { Button, ButtonText, HStack, Center } from '@gluestack-ui/themed';
 
 export default function FoodCreateScreen({ navigation }) {
   const {
@@ -43,14 +44,22 @@ export default function FoodCreateScreen({ navigation }) {
       <BaseTextInput control={control} rules={{ required: true }} name="meatContent" errors={errors.meatContent} label="Meat Content (%)" />
       <BaseTextInput control={control} name="amount" errors={errors.amount} label="Amount" />
 
-      <View style={styles.formActionsContainer}>
-        <Pressable style={[styles.formButton, styles.formCancelButton]} onPress={onCancel}>
-          <Text>Cancel</Text>
-        </Pressable>
-        <Pressable style={[styles.formButton, styles.formSubmitButton]} onPress={handleSubmit(onSubmit)}>
-          <Text>Create</Text>
-        </Pressable>
-      </View>
+      <Center mt="$4">
+        <HStack space="lg">
+          <Button
+            action="negative"
+            onPress={onCancel}
+          >
+            <ButtonText>Cancel</ButtonText>
+          </Button>
+          <Button
+            action="positive"
+            onPress={handleSubmit(onSubmit)}
+          >
+            <ButtonText>Create</ButtonText>
+          </Button>
+        </HStack>
+      </Center>
     </View>
   );
 }
@@ -59,23 +68,5 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 40,
     paddingVertical: 20
-  },
-  formActionsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    columnGap: 40,
-    marginTop: 10
-  },
-  formButton: {
-    width: 60,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  formSubmitButton: {
-    backgroundColor: '#2f8f00',
-  },
-  formCancelButton: {
-    backgroundColor: '#c20000',
-  },
+  }
 });

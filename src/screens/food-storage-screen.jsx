@@ -9,11 +9,7 @@ export default function FoodStorageScreen({ navigation }) {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          size="md"
-          variant="solid"
           action="positive"
-          isDisabled={false}
-          isFocusVisible={false}
           onPress={() => navigation.navigate('FoodCreate')}
         >
           <ButtonText>New </ButtonText>
