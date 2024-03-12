@@ -2,7 +2,13 @@ import { mutation, query } from './_generated/server';
 import { v } from 'convex/values';
 
 export const list = query(async (ctx) => {
-  return await ctx.db.query("food").collect();
+  const foodList = await ctx.db.query("food").collect();
+  return foodList
+    .sort((a, b) => {
+      if(a.amount === 0) return 1;
+      if(b.amount === 0) return -1;
+      return 0;
+    });
 });
 
 export const create = mutation({
