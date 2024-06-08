@@ -28,6 +28,7 @@ export default function FoodCreateScreen({ navigation }) {
       onCancel();
     }).catch((err) => {
       console.log(err);
+      ToastAndroid.show('There was an error!', ToastAndroid.SHORT);
     });
   };
 
