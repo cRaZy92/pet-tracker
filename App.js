@@ -23,7 +23,7 @@ export default function App() {
       <GluestackUIProvider config={config} colorMode={colorScheme}>
         <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <StatusBar style="auto" />
-          <Tab.Navigator >
+          <Tab.Navigator>
             <Tab.Screen name="Storage" component={FoodStorageScreen} options={{title: 'Available food', tabBarIcon: () => <Icon as={EditIcon} w="$6" h="$6" />}} />
             <Tab.Screen name="FoodCreate" component={FoodCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'Create New Food'}} />
             <Tab.Screen name="Stats" component={FoodStatsScreen} options={{title: 'Stats', tabBarIcon: () => <Icon as={ClockIcon} w="$6" h="$6" />}} />

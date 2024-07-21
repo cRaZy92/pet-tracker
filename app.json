@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "pet-tracker",
+    "name": "Pet Tracker",
     "slug": "pet-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,14 +19,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.adamko.pet_tracker"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "extra": {
       "eas": {
         "projectId": "d2db6c27-464a-434d-b540-fcaf419f98b6"
