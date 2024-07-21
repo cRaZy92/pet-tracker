@@ -16,6 +16,6 @@ export default defineSchema({
 	expenses: defineTable({
 		description: v.string(),
 		amount: v.number(),
-		date: v.string(),
+		date: v.number(),
 	}),
 });

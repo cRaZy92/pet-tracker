@@ -20,7 +20,7 @@ export default function ExpenseCreateScreen({navigation}) {
   });
 
   const onSubmit = data => {
-    data.amount = parseInt(data.amount);
+    data.amount = parseFloat(data.amount);
     data.date = data.date.getTime();
 
     createNewExpense(data).then((newExpenseId) => {
