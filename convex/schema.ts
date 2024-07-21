@@ -13,4 +13,9 @@ export default defineSchema({
 		foodId: v.id('food'),
 		amountChange: v.number(),
 	}),
+	expense: defineTable({
+		description: v.string(),
+		amount: v.number(),
+		date: v.string(),
+	}),
 });
