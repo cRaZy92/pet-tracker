@@ -3,6 +3,7 @@ import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { FlatList, Button, ButtonText, ButtonIcon, AddIcon } from '@gluestack-ui/themed';
 import ExpenseItem from "@/components/expense-item";
+import ExpensesStats from "@/components/expenses-stats";
 
 export default function ExpensesScreen({ navigation }) {
   const expensesList = useQuery(api.expenses.list) || [];
@@ -22,12 +23,15 @@ export default function ExpensesScreen({ navigation }) {
   }, [navigation]);
 
   return (
-    <FlatList
-      data={expensesList}
-      keyExtractor={(item) => item._id }
-      renderItem={({ item }) =>
-        <ExpenseItem {...item} />
-      }
-    />
+    <>
+      <ExpensesStats />
+      <FlatList
+        data={expensesList}
+        keyExtractor={(item) => item._id }
+        renderItem={({ item }) =>
+          <ExpenseItem {...item} />
+        }
+      />
+    </>
   );
 }
