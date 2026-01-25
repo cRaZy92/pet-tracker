@@ -17,6 +17,8 @@ import type {
 import type * as expenses from "../expenses.js";
 import type * as food from "../food.js";
 import type * as foodLogs from "../foodLogs.js";
+import type * as http from "../http.js";
+import type * as messages from "../messages.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -30,6 +32,8 @@ declare const fullApi: ApiFromModules<{
   expenses: typeof expenses;
   food: typeof food;
   foodLogs: typeof foodLogs;
+  http: typeof http;
+  messages: typeof messages;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

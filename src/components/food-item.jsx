@@ -5,7 +5,7 @@ import { api } from '../../convex/_generated/api';
 import { Box, Button, ButtonText, Card, Heading, Image, Text, VStack } from '@gluestack-ui/themed';
 import FoodAddMoreModal from './food-add-more-modal';
 
-export default function FoodItem({ id, brand, name, weight, meatContent, amount }) {
+export default function FoodItem({ id, brand, name, weight, meatContent, amount, imageUrl }) {
   const updateFood = useMutation(api.food.update);
 
   const onAmountChange = changeAmount => {
@@ -19,13 +19,17 @@ export default function FoodItem({ id, brand, name, weight, meatContent, amount 
   };
 
   return (
-    <Card borderRadius="$lg" maxWidth="49%" m="$1">
+    <Card borderRadius="$lg" m="$1" style={{
+      flex: 1,
+      flexBasis: 0,
+      maxWidth: '48%',
+    }}>
       <Image
         mb="$3"
         h={120}
         width="$full"
         borderRadius="$md"
-        source={TestImage}
+        source={imageUrl ?? TestImage}
         alt="food image"
       />
       <Text
@@ -39,7 +43,7 @@ export default function FoodItem({ id, brand, name, weight, meatContent, amount 
         {brand}
       </Text>
       <VStack mb="$3">
-        <Heading size="md" fontFamily="$heading" mb="$2" width="98%">
+        <Heading size="md" fontFamily="$heading" mb="$2">
           {name}
         </Heading>
         <Text size="sm" fontFamily="$heading">

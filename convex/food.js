@@ -3,13 +3,26 @@ import { v } from 'convex/values';
 
 export const list = query(async (ctx) => {
   const foodList = await ctx.db.query("food").collect();
-  return foodList
-    .sort((a, b) => {
-      if(a.amount === 0) return 1;
-      if(b.amount === 0) return -1;
-      return 0;
-    });
+
+  const foodWithImages = await Promise.all(
+    foodList.map(async (food) => {
+      return {
+        ...food,
+        // If imageStorageId exists, get the URL; otherwise, it's null
+        imageUrl: food.imageStorageId
+          ? await ctx.storage.getUrl(food.imageStorageId)
+          : null,
+      };
+    })
+  );
+
+  return foodWithImages.sort((a, b) => {
+    if (a.amount === 0) return 1;
+    if (b.amount === 0) return -1;
+    return 0;
+  });
 });
+
 
 export const create = mutation({
   args: {
@@ -17,7 +30,8 @@ export const create = mutation({
     name: v.string(),
     weight: v.number(),
     meatContent: v.number(),
-    amount: v.number()
+    amount: v.number(),
+    storageId: v.id("_storage"), // Pass the ID here
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("food",
@@ -27,6 +41,7 @@ export const create = mutation({
         weight: args.weight,
         meatContent: args.meatContent,
         amount: args.amount,
+        imageStorageId: args.storageId,
       });
   },
 });

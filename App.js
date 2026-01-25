@@ -11,7 +11,7 @@ import { useColorScheme } from 'react-native';
 import ExpensesScreen from "@/screens/expenses-screen";
 import ExpenseCreateScreen from "@/screens/expense-create-screen";
 
-const Tab = createBottomTabNavigator();
+const { Navigator, Screen } = createBottomTabNavigator();
 
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL, {
   unsavedChangesWarning: false,
@@ -25,13 +25,13 @@ export default function App() {
       <GluestackUIProvider config={config} colorMode={colorScheme}>
         <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <StatusBar style="auto" />
-          <Tab.Navigator>
-            <Tab.Screen name="Storage" component={FoodStorageScreen} options={{title: 'Available food', tabBarIcon: () => <Icon as={EditIcon} w="$6" h="$6" />}} />
-            <Tab.Screen name="FoodCreate" component={FoodCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'Create New Food'}} />
-            <Tab.Screen name="Expenses" component={ExpensesScreen} options={{title: 'Expenses', tabBarIcon: () => <Icon as={AlertCircleIcon} w="$6" h="$6" />}} />
-            <Tab.Screen name="ExpenseCreate" component={ExpenseCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'Create new expense'}} />
-            <Tab.Screen name="Stats" component={FoodStatsScreen} options={{title: 'Stats', tabBarIcon: () => <Icon as={ClockIcon} w="$6" h="$6" />}} />
-          </Tab.Navigator>
+          <Navigator>
+            <Screen name="Storage" component={FoodStorageScreen} options={{title: 'Available food', tabBarIcon: () => <Icon as={EditIcon} w="$6" h="$6" />}} />
+            <Screen name="FoodCreate" component={FoodCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'Create New Food'}} />
+            <Screen name="Expenses" component={ExpensesScreen} options={{title: 'Expenses', tabBarIcon: () => <Icon as={AlertCircleIcon} w="$6" h="$6" />}} />
+            <Screen name="ExpenseCreate" component={ExpenseCreateScreen} options={{tabBarItemStyle: {display: 'none'}, title: 'Create new expense'}} />
+            <Screen name="Stats" component={FoodStatsScreen} options={{title: 'Stats', tabBarIcon: () => <Icon as={ClockIcon} w="$6" h="$6" />}} />
+          </Navigator>
         </NavigationContainer>
       </GluestackUIProvider>
     </ConvexProvider>
