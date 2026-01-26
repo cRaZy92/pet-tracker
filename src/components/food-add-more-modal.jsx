@@ -25,7 +25,7 @@ import {
 } from '@gluestack-ui/themed';
 import { useMemo, useRef, useState } from 'react';
 
-export default function FoodAddMoreModal({ id, brand, name, amountInBox, originalAmount }) {
+export default function FoodAddMoreModal({ id, brand, name, amountInBox, ean, originalAmount }) {
   const [showModal, setShowModal] = useState(false)
   const ref = useRef(null)
   const updateFood = useMutation(api.food.update);
@@ -58,13 +58,26 @@ export default function FoodAddMoreModal({ id, brand, name, amountInBox, origina
         onPress={() => setShowModal(true)}
         ref={ref}
       >
-        <ButtonText
-          size="sm"
-          color="$textLight700"
-          $dark-color="$textDark400"
-        >
-          Add more
-        </ButtonText>
+        <VStack spacing="xs">
+          <ButtonText
+            size="sm"
+            color="$textLight700"
+            $dark-color="$textDark400"
+            style={{marginLeft: 'auto', marginRight: 'auto'}}
+          >
+            Add more
+          </ButtonText>
+          {
+            ean && <ButtonText
+              size="2xs"
+              color="$textLight700"
+              $dark-color="$textDark400"
+              style={{marginLeft: 'auto', marginRight: 'auto'}}
+            >
+              EAN: {ean}
+            </ButtonText>
+          }
+        </VStack>
       </Button>
       <Modal
         isOpen={showModal}

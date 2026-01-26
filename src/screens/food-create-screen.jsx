@@ -4,24 +4,37 @@ import { useState } from 'react';
 import BaseTextInput from '../components/form/base-text-input';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { Button, ButtonText, HStack, Center, Image } from '@gluestack-ui/themed';
+import { Button, ButtonText, HStack, Center, Image, InputSlot, GripVerticalIcon, InputIcon } from '@gluestack-ui/themed';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import TestImage from "../../assets/test-image.png";
+import {BarcodeScanner} from "@/components/barcode-scanner";
 
 export default function FoodCreateScreen({ navigation }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const createNewFood = useMutation(api.food.create);
   const generateUploadUrl = useMutation(api.messages.generateUploadUrl);
+  const [isScannerOpen, setScannerOpen] = useState(false);
 
   const {
-    control, handleSubmit, reset,
+    control, handleSubmit, reset, setValue,
     formState: { errors, isSubmitting, isLoading },
   }
     = useForm({
     defaultValues: {
-      amountInBox: '12'
+      amountInBox: '12',
+      ean: '',
     }
   });
+
+  const onScanButton = () => {
+    setScannerOpen(true);
+  };
+
+  const onScanComplete = (data) => {
+    console.log('Scan complete', data);
+    setScannerOpen(false);
+    setValue("ean", data);
+  }
 
   const onSubmit = async (data) => {
     try {
@@ -79,6 +92,12 @@ export default function FoodCreateScreen({ navigation }) {
     }
   };
 
+  if(isScannerOpen) {
+    return (
+      <BarcodeScanner onScan={onScanComplete} />
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Pressable onPress={pickImage}>
@@ -98,6 +117,11 @@ export default function FoodCreateScreen({ navigation }) {
       <BaseTextInput control={control} rules={{ required: true }} name="weight" errors={errors.weight} label="Weight (g)" />
       <BaseTextInput control={control} rules={{ required: true }} name="meatContent" errors={errors.meatContent} label="Meat Content (%)" />
       <BaseTextInput control={control} rules={{ required: true }} name="amountInBox" errors={errors.amountInBox} label="Amount in box" />
+      <BaseTextInput control={control} rules={{ required: true }} name="ean" errors={errors.ean} label="EAN">
+        <InputSlot className="pr-3" onPress={onScanButton}>
+          <InputIcon as={GripVerticalIcon} w="$8" h="$8" />
+        </InputSlot>
+      </BaseTextInput>
 
       <Center mt="$4">
         <HStack space="lg">

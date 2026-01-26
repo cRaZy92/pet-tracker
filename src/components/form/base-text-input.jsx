@@ -9,7 +9,7 @@ import {
   InputField,
 } from '@gluestack-ui/themed';
 
-export default function BaseTextInput({ control, rules, name, label, errors}) {
+export default function BaseTextInput({ control, rules, name, label, errors, children}) {
   return (
     <FormControl
       size="md"
@@ -31,6 +31,7 @@ export default function BaseTextInput({ control, rules, name, label, errors}) {
           )}
           name={name}
         />
+        {children}
       </Input>
       <FormControlError>
         <FormControlErrorIcon as={AlertCircleIcon} />

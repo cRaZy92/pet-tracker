@@ -23,6 +23,15 @@ export const list = query(async (ctx) => {
   });
 });
 
+export const getByEan = mutation({
+  args: { ean: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("food")
+      .filter((q) => q.eq(q.field("ean"), args.ean))
+      .unique();
+  },
+});
 
 export const create = mutation({
   args: {
@@ -31,7 +40,8 @@ export const create = mutation({
     weight: v.number(),
     meatContent: v.number(),
     amountInBox: v.number(),
-    storageId: v.id("_storage"), // Pass the ID here
+    storageId: v.id("_storage"),
+    ean: v.string(),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("food",
@@ -43,6 +53,7 @@ export const create = mutation({
         amount: args.amountInBox ?? 0,
         amountInBox: args.amountInBox ?? 12,
         imageStorageId: args.storageId,
+        ean: args.ean,
       });
   },
 });

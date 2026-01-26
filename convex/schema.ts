@@ -10,6 +10,7 @@ export default defineSchema({
 		amount: v.number(),
 		amountInBox: v.optional(v.number()),
 		imageStorageId: v.optional(v.id("_storage")),
+		ean: v.optional(v.string()),
 	}),
 	foodLog: defineTable({
 		foodId: v.id('food'),
