@@ -117,7 +117,7 @@ export default function FoodCreateScreen({ navigation }) {
       <BaseTextInput control={control} rules={{ required: true }} name="weight" errors={errors.weight} label="Weight (g)" />
       <BaseTextInput control={control} rules={{ required: true }} name="meatContent" errors={errors.meatContent} label="Meat Content (%)" />
       <BaseTextInput control={control} rules={{ required: true }} name="amountInBox" errors={errors.amountInBox} label="Amount in box" />
-      <BaseTextInput control={control} rules={{ required: true }} name="ean" errors={errors.ean} label="EAN">
+      <BaseTextInput control={control} name="ean" errors={errors.ean} label="EAN">
         <InputSlot className="pr-3" onPress={onScanButton}>
           <InputIcon as={GripVerticalIcon} w="$8" h="$8" />
         </InputSlot>
