@@ -41,7 +41,14 @@
       "url": "https://u.expo.dev/d2db6c27-464a-434d-b540-fcaf419f98b6"
     },
     "plugins": [
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "recordAudioAndroid": false
+        }
+      ]
     ]
   }
 }

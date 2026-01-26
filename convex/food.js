@@ -30,7 +30,7 @@ export const create = mutation({
     name: v.string(),
     weight: v.number(),
     meatContent: v.number(),
-    amount: v.number(),
+    amountInBox: v.number(),
     storageId: v.id("_storage"), // Pass the ID here
   },
   handler: async (ctx, args) => {
@@ -40,7 +40,8 @@ export const create = mutation({
         name: args.name,
         weight: args.weight,
         meatContent: args.meatContent,
-        amount: args.amount,
+        amount: args.amountInBox ?? 0,
+        amountInBox: args.amountInBox ?? 12,
         imageStorageId: args.storageId,
       });
   },

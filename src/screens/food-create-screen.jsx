@@ -15,11 +15,11 @@ export default function FoodCreateScreen({ navigation }) {
 
   const {
     control, handleSubmit, reset,
-    formState: { errors }
+    formState: { errors, isSubmitting, isLoading },
   }
     = useForm({
     defaultValues: {
-      amount: '0'
+      amountInBox: '12'
     }
   });
 
@@ -27,7 +27,7 @@ export default function FoodCreateScreen({ navigation }) {
     try {
       data.weight = parseInt(data.weight);
       data.meatContent = parseInt(data.meatContent);
-      data.amount = parseInt(data.amount);
+      data.amountInBox = parseInt(data.amountInBox);
 
       if (selectedImage) {
         const postUrl = await generateUploadUrl();
@@ -49,7 +49,7 @@ export default function FoodCreateScreen({ navigation }) {
       createNewFood(data).then((newFoodId) => {
         console.log(`Saved new food with ID ${newFoodId}`);
         ToastAndroid.show('New food saved!', ToastAndroid.SHORT);
-        onCancel();
+        onCancel(); // TODO: this final step takes too long and the submit button can be pressed multiple times before nav back
       }).catch((err) => {
         console.log(err);
         ToastAndroid.show('There was an error!', ToastAndroid.SHORT);
@@ -57,7 +57,7 @@ export default function FoodCreateScreen({ navigation }) {
     } catch (err) {
         console.error("Submission error:", err);
         ToastAndroid.show('There was an error! ' + err.message, ToastAndroid.LONG);
-      }
+    }
   };
 
   const onCancel = () => {
@@ -83,7 +83,6 @@ export default function FoodCreateScreen({ navigation }) {
     <View style={styles.container}>
       <Pressable onPress={pickImage}>
         <Image
-          onPress={pickImage}
           mb="$3"
           h={200}
           width="$full"
@@ -98,7 +97,7 @@ export default function FoodCreateScreen({ navigation }) {
       <BaseTextInput control={control} rules={{ required: true }} name="name" errors={errors.name} label="Name" />
       <BaseTextInput control={control} rules={{ required: true }} name="weight" errors={errors.weight} label="Weight (g)" />
       <BaseTextInput control={control} rules={{ required: true }} name="meatContent" errors={errors.meatContent} label="Meat Content (%)" />
-      <BaseTextInput control={control} name="amount" errors={errors.amount} label="Amount" />
+      <BaseTextInput control={control} rules={{ required: true }} name="amountInBox" errors={errors.amountInBox} label="Amount in box" />
 
       <Center mt="$4">
         <HStack space="lg">
@@ -111,6 +110,7 @@ export default function FoodCreateScreen({ navigation }) {
           <Button
             action="positive"
             onPress={handleSubmit(onSubmit)}
+            isDisabled={isSubmitting || isLoading}
           >
             <ButtonText>Create</ButtonText>
           </Button>

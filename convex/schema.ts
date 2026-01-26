@@ -8,6 +8,7 @@ export default defineSchema({
 		weight: v.number(),
 		meatContent: v.number(),
 		amount: v.number(),
+		amountInBox: v.optional(v.number()),
 		imageStorageId: v.optional(v.id("_storage")),
 	}),
 	foodLog: defineTable({

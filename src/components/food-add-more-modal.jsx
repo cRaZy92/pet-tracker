@@ -25,16 +25,16 @@ import {
 } from '@gluestack-ui/themed';
 import { useMemo, useRef, useState } from 'react';
 
-export default function FoodAddMoreModal({ id, brand, name, originalAmount }) {
+export default function FoodAddMoreModal({ id, brand, name, amountInBox, originalAmount }) {
   const [showModal, setShowModal] = useState(false)
   const ref = useRef(null)
   const updateFood = useMutation(api.food.update);
-  const [newAmount, setNewAmount] = useState();
+  const [newAmount, setNewAmount] = useState(amountInBox.toString());
   const isInvalid = useMemo(() => {
     const parsedAmount = parseInt(newAmount);
 
     return Number.isNaN(parsedAmount) || parsedAmount < 1;
-  }, [newAmount])
+  }, [newAmount]);
 
   const onSubmit = () => {
     updateFood({ id: id, amount: originalAmount, amountChange: parseInt(newAmount) }).then(() => {
@@ -88,13 +88,13 @@ export default function FoodAddMoreModal({ id, brand, name, originalAmount }) {
                 size="md"
                 isDisabled={false}
                 isInvalid={isInvalid}
-                isRequired={true}
+                isRequired={false}
               >
                 <FormControlLabel mb="$1">
                   <FormControlLabelText>Amount to add</FormControlLabelText>
                 </FormControlLabel>
                 <Input>
-                  <InputField type="number" placeholder="12" onChangeText={(text) => setNewAmount(text)} />
+                  <InputField type="number" placeholder={amountInBox.toString()} onChangeText={(text) => setNewAmount(text)} />
                 </Input>
                 <FormControlError>
                   <FormControlErrorIcon as={AlertCircleIcon} />
